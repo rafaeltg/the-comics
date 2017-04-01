@@ -1,4 +1,6 @@
 from flask import Flask
 
 app = Flask(__name__)
-from .views import home
+app.static_folder = 'static'
+
+from .controllers import home

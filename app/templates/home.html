@@ -2,36 +2,27 @@
 <html>
 
 <head>
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
      <meta charset='utf-8'>
-     <style>
-      img.thumbnail {
-        max-width: 200px;
-        max-height: 200px;
-      }
-     </style>
      <title>{{ comic.title }}</title>
 </head>
 
 <body>
 <h1> {{ comic.title }} </h1>
 <summary> {{ comic.description }} </summary>
+
 <h2>Characters</h2>
-<table>
-     <thead>
-     <th>Picture</th>
-     <th>Name</th>
-     </thead>
 
-     <tbody>
+<div class="row">
+
      {% for char in comic.characters %}
-     <tr>
-          <td><img class='thumbnail' alt="{{ char.name }} thumbnail" src="{{ char.thumbnail }}" /></td>
-          <td> {{ char.name }} </td>
-     </tr>
+     <div class="thumbnailContainer">
+          <img class="thumbnail" src="{{ char.thumbnail }}" alt="{{ char.name }} thumbnail"/>
+          <p class="thumbnail"> {{ char.name }} </p>
+     </div>
      {% endfor %}
-     </tbody>
 
-</table>
-
+</div>
+{{ attribution_html|safe }}
 </body>
 </html>

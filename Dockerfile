@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM python:2.7
 
 MAINTAINER Rafael Thomazi Gonzalez "rthomazigonzalez@gmail.com"
 
@@ -12,7 +12,8 @@ WORKDIR /app
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 
-COPY . /app
+COPY ./app /app
+COPY ./run.py /app
 
 EXPOSE 5000
 

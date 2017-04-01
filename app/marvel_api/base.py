@@ -5,30 +5,41 @@ import os
 from .resources import Character, Comic
 
 
+BASE_URL = 'https://gateway.marvel.com/v1/public'
+
+
 class MarvelApi:
 
-    _BASE_URL = 'https://gateway.marvel.com/v1/public'
+    def __init__(self):
+        self.base_url = BASE_URL
+        self._attrib_html = None
+
+    @property
+    def attribution_html(self):
+        return self._attrib_html
 
     def get_character(self, name):
-        url = self._BASE_URL + '/characters?name={}&'.format(name)
+        url = self.base_url + '/characters?name={}&'.format(name)
         chars_json = self._get(url)
         return Character.from_json(chars_json[0]) if len(chars_json) > 0 else None
 
     def get_comic(self, id):
-        url = self._BASE_URL + '/comics/{}?'.format(id)
+        url = self.base_url + '/comics/{}?'.format(id)
         comic_json = self._get(url)[0]
         c = Comic.from_json(comic_json)
         c.characters = self.get_comic_characters(id)
         return c
 
     def get_comic_characters(self, id):
-        url = self._BASE_URL + '/comics/{}?'.format(id)
+        url = self.base_url + '/comics/{}/characters?'.format(id)
         chars_json = self._get(url)
         return [Character.from_json(c) for c in chars_json]
 
     def _get(self, url):
         resp = requests.get(url+self._auth())
-        return resp.json()['data']['results']
+        resp_json = resp.json()
+        self._attrib_html = resp_json['attributionHTML']
+        return resp_json['data']['results']
 
     def _auth(self):
         timestamp = time.strftime("%s")

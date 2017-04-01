@@ -22,4 +22,4 @@ def show_comic(char_name):
         return render_template('error.html', name=char_name), 404
 
     comic = m.get_comic(random.choice(char.comics))
-    return render_template('home.html', comic=comic)
+    return render_template('home.html', comic=comic, attribution_html=m.attribution_html)

@@ -1,4 +1,3 @@
-import json
 
 
 class Character:
@@ -27,13 +26,10 @@ class Character:
 
     @staticmethod
     def from_json(char_json):
-        id = char_json['id'] if 'id' in char_json else ''
-        name = char_json['name'] if 'name' in char_json else ''
-        comics = char_json['comics']['items'] if 'comics' in char_json else []
         c = Character(
-            id=id,
-            name=name,
+            id=char_json['id'],
+            name=char_json['name'],
             thumbnail=char_json['thumbnail']['path']+'.'+char_json['thumbnail']['extension'],
-            comics=[c['resourceURI'].split('/')[-1] for c in comics],
+            comics=[c['resourceURI'].split('/')[-1] for c in char_json['comics']['items']]
         )
         return c
