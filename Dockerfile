@@ -12,8 +12,7 @@ WORKDIR /app
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 
-COPY ./app /app
-COPY ./run.py /app
+COPY . /app
 
 EXPOSE 5000
 
