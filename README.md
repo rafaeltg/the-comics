@@ -17,7 +17,7 @@ page, but the HTML itself should be well-formatted.
 
 ## Installing and running the server
 
-Before running the server you need to have a Marvel's API Public and Private keys. Once you get them, 
+Before running the server you need to get Marvel's API Public and Private keys. Once you get them, 
 please set `MARVEL_PUBLIC_KEY` and `MARVEL_PRIVATE_KEY` environment variables:
 
 ```bash
@@ -48,7 +48,7 @@ export MARVEL_PRIVATE_KEY=<YOUR_MARVEL_PRIVATE_KEY>
 
 
 ## Let's have fun
-1) Go to the browser and open the url `http://127.0.0.1:5000` (by default it will display some random Deadpool's comic)
+1) Go to your browser and open the url `http://127.0.0.1:5000` (by default it will display some random Deadpool's comic)
 
 2) You can query a random comic from any Marvel's character. For example, to open a random Hulk's comic, use the url: 
 `http://127.0.0.1:5000/Hulk`
