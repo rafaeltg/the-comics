@@ -39,6 +39,7 @@ export MARVEL_PRIVATE_KEY=<YOUR_MARVEL_PRIVATE_KEY>
 ### Running without Docker:
 * Requirements:
     * Python (developed and tested with version 2.7)
+    * pip package (developed and tested with version 9.0.7)
 
 * Run the following commands on the project root folder:
 
