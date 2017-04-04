@@ -1,3 +1,4 @@
+import os
 import unittest
 from unittest.mock import patch
 from ..base import MarvelApi, Character
@@ -7,19 +8,17 @@ class MarvelAPITests(unittest.TestCase):
 
     def setUp(self):
         self.marvel_api = MarvelApi()
+        os.environ['MARVEL_PUBLIC_KEY'] = '123'
+        os.environ['MARVEL_PRIVATE_KEY'] = '456'
 
     @patch('app.marvel_api.base.MarvelApi._get')
-    @patch('app.marvel_api.base.MarvelApi._auth')
-    def test_get_invalid_character(self, mocked_auth, mocked_get):
-        mocked_auth.return_value = ''
+    def test_get_invalid_character(self, mocked_get):
         mocked_get.return_value = []
         char = self.marvel_api.get_character('test')
         self.assertIsNone(char)
 
     @patch('app.marvel_api.base.MarvelApi._get')
-    @patch('app.marvel_api.base.MarvelApi._auth')
-    def test_get_valid_character(self, mocked_auth, mocked_get):
-        mocked_auth.return_value = ''
+    def test_get_valid_character(self, mocked_get):
         mocked_get.return_value = [
             {
                 'id': 12,
@@ -44,9 +43,7 @@ class MarvelAPITests(unittest.TestCase):
         self.assertListEqual(char.comics, ['123'])
 
     @patch('app.marvel_api.base.MarvelApi._get')
-    @patch('app.marvel_api.base.MarvelApi._auth')
-    def test_get_comic_characters(self, mocked_auth, mocked_get):
-        mocked_auth.return_value = ''
+    def test_get_comic_characters(self, mocked_get):
         mocked_get.return_value = [
             {
                 'id': 12,
@@ -88,10 +85,8 @@ class MarvelAPITests(unittest.TestCase):
         self.assertListEqual(chars[1].comics, ['123'])
 
     @patch('app.marvel_api.base.MarvelApi._get')
-    @patch('app.marvel_api.base.MarvelApi._auth')
     @patch('app.marvel_api.base.MarvelApi.get_comic_characters')
-    def test_get_comic(self, mocked_get_comic_characters, mocked_auth, mocked_get):
-        mocked_auth.return_value = ''
+    def test_get_comic(self, mocked_get_comic_characters, mocked_get):
         mocked_get.return_value = [
             {
                 "id": 12,
@@ -112,6 +107,11 @@ class MarvelAPITests(unittest.TestCase):
         self.assertEqual(comic.characters[0].name, 'Deadpool')
         self.assertEqual(comic.characters[0].thumbnail, 'test.jpg')
         self.assertListEqual(comic.characters[0].comics, ['12'])
+
+    @patch('time.strftime')
+    def test_aut(self, mocked_strftime):
+        mocked_strftime.return_value = '12345'
+        self.assertEqual(self.marvel_api._auth(), 'ts=12345&apikey=123&hash=9668c12c30b216f5d9765e27cf7c341f')
 
 
 if __name__ == '__main__':

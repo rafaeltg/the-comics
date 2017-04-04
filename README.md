@@ -53,3 +53,10 @@ export MARVEL_PRIVATE_KEY=<YOUR_MARVEL_PRIVATE_KEY>
 
 2) You can query a random comic from any Marvel's character. For example, to open a random Hulk's comic, use the url: 
 `http://127.0.0.1:5000/Hulk`
+
+
+## Running tests
+* Run the following commands on the project root folder
+* Testing Marvel's API: `python -m app.marvel_api.tests.base_tests`
+* Testing the server (remember to export `MARVEL_PUBLIC_KEY` and `MARVEL_PRIVATE_KEY`!): `python -m app.tests.the_comics_tests` 
+
