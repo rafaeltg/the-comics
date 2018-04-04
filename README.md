@@ -1,4 +1,4 @@
-# The Comics Test
+# The Comics
 
 Your task is to generate an HTML page that lists the characters from a
 Marvel-story.
@@ -10,9 +10,6 @@ with the following characteristics:
 * The story's description
 * A list of names and pictures of the characters that features in the story
 * The Marvel attribution text
-
-We are not too fuzzy about the layout or design of the generated HTML
-page, but the HTML itself should be well-formatted.
 
 
 ## Installing and running the server
